@@ -14,7 +14,346 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      books: {
+        Row: {
+          author: string | null
+          cover_image_url: string | null
+          created_at: string
+          id: string
+          isbn: string | null
+          language: string | null
+          published_year: number | null
+          title: string
+        }
+        Insert: {
+          author?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          isbn?: string | null
+          language?: string | null
+          published_year?: number | null
+          title: string
+        }
+        Update: {
+          author?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          id?: string
+          isbn?: string | null
+          language?: string | null
+          published_year?: number | null
+          title?: string
+        }
+        Relationships: []
+      }
+      club_members: {
+        Row: {
+          club_id: string
+          id: string
+          joined_at: string
+          member_status: Database["public"]["Enums"]["member_status"]
+          role: Database["public"]["Enums"]["club_member_role"]
+          user_id: string
+        }
+        Insert: {
+          club_id: string
+          id?: string
+          joined_at?: string
+          member_status?: Database["public"]["Enums"]["member_status"]
+          role?: Database["public"]["Enums"]["club_member_role"]
+          user_id: string
+        }
+        Update: {
+          club_id?: string
+          id?: string
+          joined_at?: string
+          member_status?: Database["public"]["Enums"]["member_status"]
+          role?: Database["public"]["Enums"]["club_member_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "club_members_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      club_reads: {
+        Row: {
+          book_id: string
+          club_id: string
+          created_at: string
+          end_date: string | null
+          id: string
+          start_date: string | null
+          status: Database["public"]["Enums"]["club_read_status"]
+        }
+        Insert: {
+          book_id: string
+          club_id: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["club_read_status"]
+        }
+        Update: {
+          book_id?: string
+          club_id?: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["club_read_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "club_reads_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "books"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "club_reads_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clubs: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+          privacy: Database["public"]["Enums"]["club_privacy"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+          privacy?: Database["public"]["Enums"]["club_privacy"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+          privacy?: Database["public"]["Enums"]["club_privacy"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      discussion_threads: {
+        Row: {
+          club_id: string
+          club_read_id: string | null
+          created_at: string
+          created_by: string
+          id: string
+          is_pinned: boolean
+          title: string
+        }
+        Insert: {
+          club_id: string
+          club_read_id?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          is_pinned?: boolean
+          title: string
+        }
+        Update: {
+          club_id?: string
+          club_read_id?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          is_pinned?: boolean
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_threads_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discussion_threads_club_read_id_fkey"
+            columns: ["club_read_id"]
+            isOneToOne: false
+            referencedRelation: "club_reads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          id: string
+          is_read: boolean
+          link_url: string | null
+          title: string
+          type: Database["public"]["Enums"]["notification_type"]
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          link_url?: string | null
+          title: string
+          type: Database["public"]["Enums"]["notification_type"]
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          link_url?: string | null
+          title?: string
+          type?: Database["public"]["Enums"]["notification_type"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reading_progress: {
+        Row: {
+          club_read_id: string
+          created_at: string
+          id: string
+          status: Database["public"]["Enums"]["read_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          club_read_id: string
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["read_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          club_read_id?: string
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["read_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reading_progress_club_read_id_fkey"
+            columns: ["club_read_id"]
+            isOneToOne: false
+            referencedRelation: "club_reads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      thread_comments: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          is_deleted: boolean
+          parent_comment_id: string | null
+          thread_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          is_deleted?: boolean
+          parent_comment_id?: string | null
+          thread_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          is_deleted?: boolean
+          parent_comment_id?: string | null
+          thread_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "thread_comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "thread_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "thread_comments_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "discussion_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +362,16 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      club_member_role: "admin" | "member"
+      club_privacy: "public" | "private"
+      club_read_status: "active" | "archived"
+      member_status: "active" | "left"
+      notification_type:
+        | "thread_created"
+        | "comment_created"
+        | "reply_created"
+        | "current_read_changed"
+      read_status: "not_started" | "in_progress" | "finished"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +498,18 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      club_member_role: ["admin", "member"],
+      club_privacy: ["public", "private"],
+      club_read_status: ["active", "archived"],
+      member_status: ["active", "left"],
+      notification_type: [
+        "thread_created",
+        "comment_created",
+        "reply_created",
+        "current_read_changed",
+      ],
+      read_status: ["not_started", "in_progress", "finished"],
+    },
   },
 } as const
