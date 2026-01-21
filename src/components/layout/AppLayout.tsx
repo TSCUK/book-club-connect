@@ -24,6 +24,27 @@ export function AppLayout() {
               >
                 Dashboard
               </NavLink>
+              <NavLink
+                to="/clubs"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                activeClassName="text-foreground"
+              >
+                Clubs
+              </NavLink>
+              <NavLink
+                to="/discussions"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                activeClassName="text-foreground"
+              >
+                Discussions
+              </NavLink>
+              <NavLink
+                to="/profile"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                activeClassName="text-foreground"
+              >
+                Profile
+              </NavLink>
             </nav>
           </div>
 
