@@ -9,6 +9,11 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Dashboard from "@/pages/Dashboard";
+import Clubs from "@/pages/Clubs";
+import ClubDetail from "@/pages/ClubDetail";
+import Discussions from "@/pages/Discussions";
+import Profile from "@/pages/Profile";
+import AdminClub from "@/pages/AdminClub";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
@@ -26,12 +31,31 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/clubs" element={<Clubs />} />
+              <Route path="/clubs/:clubId" element={<ClubDetail />} />
+              <Route path="/discussions" element={<Discussions />} />
 
               <Route
                 path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute>
+                    <AdminClub />
                   </ProtectedRoute>
                 }
               />
